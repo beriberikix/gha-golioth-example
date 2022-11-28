@@ -1,0 +1,31 @@
+name: Build Zephyr binary
+
+on:
+  schedule:
+    - cron: '24 8 * * *'
+  push:
+    branches: [ main ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: action/checkout@v3
+
+      - name: Install OS dependencies
+        run: sudo apt-get install -y device-tree-compiler git ninja-build wget
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Python dependencies
+        run: |
+          pip3 install west
