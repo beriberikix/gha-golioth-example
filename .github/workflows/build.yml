@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: action/checkout@v3
+      - name: Checkout repository
+        uses: action/checkout@v3
 
       - name: Install OS dependencies
         run: sudo apt-get install -y device-tree-compiler git ninja-build wget
