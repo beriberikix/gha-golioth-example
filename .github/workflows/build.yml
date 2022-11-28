@@ -33,3 +33,7 @@ jobs:
           mkdir -p /opt/zephyr-sdk
           tar -xvf zephyr-sdk-0.15.2_linux-x86_64_minimal.tar.gz -C /opt/zephyr-sdk --strip-components=1
           /opt/zephyr-sdk/setup.sh -t arm-zephyr-eabi
+
+      - name: Build example
+        run: |
+          west init -l
