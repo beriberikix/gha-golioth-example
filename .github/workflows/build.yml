@@ -18,6 +18,18 @@ jobs:
       - name: Install OS dependencies
         run: sudo apt-get install -y device-tree-compiler git ninja-build python3 python3-pip python3-wheel wget
 
-      - run: |
+      - name: Install build tools
+        run: |
           pip3 install west
+          pip3 install cmake
+
+      - name: Install Python packages
+        run: |
           pip3 install  -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/v3.2.0/scripts/requirements-base.txt
+
+      - name: Install Zephyr SDK
+        run: |
+          wget -q "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.15.2/zephyr-sdk-0.15.2_linux-x86_64_minimal.tar.gz"
+          mkdir -p /opt/zephyr-sdk
+          tar -xvf ${sdk_file_name} -C /opt/zephyr-sdk --strip-components=1
+          /opt/zephyr-sdk/setup.sh -t arm-zephyr-eabi
