@@ -25,3 +25,4 @@ jobs:
           cache: 'pip'
       - run: |
           pip3 install west
+          pip3 install  -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/v3.2.0/scripts/requirements-base.txt
