@@ -47,4 +47,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: zephyr
-          path: build/**
+          path: |
+            build/zephyr.elf
+            build/zephyr.hex
+            build/zephyr.map
+            build/zephyr.bin
