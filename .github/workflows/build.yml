@@ -45,7 +45,7 @@ jobs:
         run: |
           wget -q "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v$ZEPHYR_SDK_VERSION/zephyr-sdk-$ZEPHYR_SDK_VERSION_linux-x86_64_minimal.tar.gz"
           mkdir -p /opt/zephyr-sdk
-          tar -xvf zephyr-sdk-$ZEPHYR_SDK_VERSION_linux-x86_64_minimal.tar.gz -C /opt/zephyr-sdk --strip-components=1
+          tar -xvf zephyr-sdk-${{ ZEPHYR_SDK_VERSION }}_linux-x86_64_minimal.tar.gz -C /opt/zephyr-sdk --strip-components=1
           /opt/zephyr-sdk/setup.sh -t $TOOLCHAIN
 
       - name: Build example
