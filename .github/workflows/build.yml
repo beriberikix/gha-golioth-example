@@ -42,3 +42,9 @@ jobs:
           west update
           west zephyr-export
           west build -b reel_board app -p
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v3
+          with:
+            name: zephyr
+            path: ~/**
