@@ -1,8 +1,6 @@
 name: Build Zephyr binary
 
 on:
-  schedule:
-    - cron: '24 8 * * *'
   push:
     branches: [ main ]
     # Publish semver tags as releases.
