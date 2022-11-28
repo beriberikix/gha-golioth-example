@@ -24,4 +24,4 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
       - run: |
-        pip3 install west
+          pip3 install west
