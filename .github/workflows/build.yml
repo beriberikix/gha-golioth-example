@@ -39,3 +39,6 @@ jobs:
       - name: Build example
         run: |
           west init -l
+          west update
+          west zephyr-export
+          west build -b reel_board app -p
