@@ -1,0 +1,66 @@
+name: Build Zephyr binary
+
+on:
+  push:
+    branches: [ main ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  ZEPHYR_VERSION: v3.2.0
+  ZEPHYR_SDK_VERSION: '0.15.2'
+  TOOLCHAIN: arm-zephyr-eabi
+  BOARD: reel_board
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install OS dependencies
+        run: >
+          sudo apt-get install -y
+          device-tree-compiler
+          git
+          ninja-build
+          python3
+          python3-pip
+          python3-wheel
+          wget
+
+      - name: Install build tools
+        run: |
+          pip3 install west
+          pip3 install cmake
+
+      - name: Install Python packages
+        run: |
+          pip3 install -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/$ZEPHYR_VERSION/scripts/requirements-base.txt
+
+      - name: Install Zephyr SDK
+        run: |
+          wget -q "https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${{ env.ZEPHYR_SDK_VERSION }}/zephyr-sdk-${{ env.ZEPHYR_SDK_VERSION }}_linux-x86_64_minimal.tar.gz"
+          mkdir -p /opt/zephyr-sdk
+          tar -xvf zephyr-sdk-${{ env.ZEPHYR_SDK_VERSION }}_linux-x86_64_minimal.tar.gz -C /opt/zephyr-sdk --strip-components=1
+          /opt/zephyr-sdk/setup.sh -t $TOOLCHAIN
+
+      - name: Build example
+        run: |
+          west init -l
+          west update
+          west zephyr-export
+          west build -b $BOARD app -p
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: zephyr
+          path: |
+            build/zephyr/zephyr.elf
+            build/zephyr/zephyr.hex
+            build/zephyr/zephyr.map
+            build/zephyr/zephyr.bin
