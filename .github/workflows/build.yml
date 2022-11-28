@@ -48,7 +48,7 @@ jobs:
         with:
           name: zephyr
           path: |
-            build/zephyr.elf
-            build/zephyr.hex
-            build/zephyr.map
-            build/zephyr.bin
+            build/zephyr/zephyr.elf
+            build/zephyr/zephyr.hex
+            build/zephyr/zephyr.map
+            build/zephyr/zephyr.bin
