@@ -12,7 +12,7 @@ env:
   ZEPHYR_VERSION: ${{ vars.ZEPHYR_VERSION }}
   ZEPHYR_SDK_VERSION: ${{ vars.ZEPHYR_SDK_VERSION }}
   TOOLCHAIN: ${{ vars.TOOLCHAIN }}
-  BOARD: ${{ vars.reel_board }}
+  BOARD: ${{ vars.BOARD }}
 
 jobs:
   build:
@@ -53,7 +53,7 @@ jobs:
           west init -l
           west update
           west zephyr-export
-          west build -b $BOARD -s app -p
+          west build -b $BOARD app -p
 
       - name: Upload binary
         uses: actions/upload-artifact@v3
