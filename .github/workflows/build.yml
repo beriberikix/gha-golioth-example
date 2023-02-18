@@ -11,8 +11,8 @@ on:
 env:
   ZEPHYR_VERSION: ${{ vars.ZEPHYR_VERSION }}
   ZEPHYR_SDK_VERSION: ${{ vars.ZEPHYR_SDK_VERSION }}
-  TOOLCHAIN: arm-zephyr-eabi
-  BOARD: reel_board
+  TOOLCHAIN: ${{ vars.TOOLCHAIN }}
+  BOARD: ${{ vars.reel_board }}
 
 jobs:
   build:
