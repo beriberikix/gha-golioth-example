@@ -9,8 +9,8 @@ on:
     branches: [ main ]
 
 env:
-  ZEPHYR_VERSION: {{ var.ZEPHYR_VERSION }}
-  ZEPHYR_SDK_VERSION: {{ var.ZEPHYR_SDK_VERSION }}
+  ZEPHYR_VERSION: ${{ var.ZEPHYR_VERSION }}
+  ZEPHYR_SDK_VERSION: ${{ var.ZEPHYR_SDK_VERSION }}
   TOOLCHAIN: arm-zephyr-eabi
   BOARD: reel_board
 
