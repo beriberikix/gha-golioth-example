@@ -102,6 +102,10 @@ jobs:
         run: |
           goliothctl login --apiKey ${{ secrets.GOLIOTH_API_KEY }} --projectId ${{ env.GOLIOTH_PROJECT_ID }}
 
+      - name: Get latest release version number
+        id: get_version
+        uses: battila7/get-version-action@v2
+
       - name: Upload binary to Golioth (create artifact)
         run: |
-          goliothctl dfu artifact create build/zephyr/zephyr.bin --version 0.0.1
+          goliothctl dfu artifact create build/zephyr/zephyr.bin --version --version ${{ steps.get_version.outputs.version }}
