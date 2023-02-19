@@ -58,10 +58,17 @@ jobs:
           west update
           west build -b $BOARD app -p
 
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 8
+          format: 'YYYY-MM-DD-HH-mm-ss'
+
       - name: Upload binary
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}-${{ github.GITHUB_RUN_ID }}
+          name: ${{ env.NAME }}-${{ steps.time.outputs.time }}
           path: |
             build/zephyr/zephyr.elf
             build/zephyr/zephyr.hex
