@@ -55,12 +55,13 @@ jobs:
           west update
           west zephyr-export
           west blobs fetch hal_espressif
+          west update
           west build -b $BOARD app -p
 
       - name: Upload binary
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}-${{ env.GITHUB_RUN_ID }}
+          name: ${{ env.NAME }}-${{ env.GITHUB_RUN_ID}}
           path: |
             build/zephyr/zephyr.elf
             build/zephyr/zephyr.hex
