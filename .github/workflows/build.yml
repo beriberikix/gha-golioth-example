@@ -53,6 +53,7 @@ jobs:
           west init -l
           west update
           west zephyr-export
+          west blobs fetch hal_espressif
           west build -b $BOARD app -p
 
       - name: Upload binary
