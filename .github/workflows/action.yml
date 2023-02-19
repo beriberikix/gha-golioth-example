@@ -69,14 +69,10 @@ jobs:
           west update
           west build -b $BOARD app -p
 
-      - name: Get latest release version number
-        id: get_version
-        uses: battila7/get-version-action@v2
-
       - name: Upload binary to GitHub
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}-${{ steps.get_version.outputs.version }}
+          name: ${{ env.NAME }}
           path: |
             build/zephyr/zephyr.elf
             build/zephyr/zephyr.hex
@@ -103,8 +99,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: ${{ env.NAME }}-${{ steps.get_version.outputs.version }}
-          path: path/to/artifact
+          name: ${{ env.NAME }}
 
       - name: Display structure of downloaded files
         run: ls -R
