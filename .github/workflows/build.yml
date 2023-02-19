@@ -53,6 +53,7 @@ jobs:
         uses: DamianReeves/write-file-action@master
         with:
           path: app/prj.conf
+          write-mode: append
           contents: |
             CONFIG_GOLIOTH_SYSTEM_CLIENT_PSK_ID="my-psk-id"
             CONFIG_GOLIOTH_SYSTEM_CLIENT_PSK="my-psk"
