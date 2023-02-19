@@ -88,6 +88,10 @@ jobs:
 
   deploy:
     if: ${{ github.event_name != 'pull_request' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Install goliothctl
         run: |
           echo "deb [trusted=yes] https://repos.golioth.io/apt/ /" | sudo tee /etc/apt/sources.list.d/golioth.list
