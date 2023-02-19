@@ -1,4 +1,4 @@
-name: Build Zephyr binary
+name: Build Zephyr application
 
 on:
   push:
