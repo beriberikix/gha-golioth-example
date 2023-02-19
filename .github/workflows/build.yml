@@ -61,7 +61,7 @@ jobs:
       - name: Upload binary
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}-${ env.GITHUB_RUN_ID }
+          name: ${{ env.NAME }}-$GITHUB_RUN_ID
           path: |
             build/zephyr/zephyr.elf
             build/zephyr/zephyr.hex
