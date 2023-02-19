@@ -72,12 +72,8 @@ jobs:
       - name: Upload binary to GitHub
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}
-          path: |
-            build/zephyr/zephyr.elf
-            build/zephyr/zephyr.hex
-            build/zephyr/zephyr.map
-            build/zephyr/zephyr.bin
+          name: ${{ env.NAME }}-binary
+          path: build/zephyr/zephyr.bin
 
   deploy:
     if: ${{ github.event_name != 'pull_request' }}
@@ -99,11 +95,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: ${{ env.NAME }}
-          path: build
-
-      - name: 'Echo download path'
-        run: echo ${{steps.download.outputs.download-path}}
+          name: ${{ env.NAME }}-binary
 
       - name: Get latest release version number
         id: get_version
@@ -111,4 +103,4 @@ jobs:
 
       - name: Upload binary to Golioth (create artifact)
         run: |
-          goliothctl dfu artifact create build/zephyr/zephyr.bin --version --version ${{ steps.get_version.outputs.version }}
+          goliothctl dfu artifact create zephyr.bin --version --version ${{ steps.get_version.outputs.version }}
