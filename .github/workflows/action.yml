@@ -100,9 +100,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: ${{ env.NAME }}
+          path: build
 
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: 'Echo download path'
+        run: echo ${{steps.download.outputs.download-path}}
 
       - name: Get latest release version number
         id: get_version
