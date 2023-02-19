@@ -103,4 +103,4 @@ jobs:
 
       - name: Upload binary to Golioth (create artifact)
         run: |
-          goliothctl dfu artifact create zephyr.bin --version --version ${{ steps.get_version.outputs.version }}
+          goliothctl dfu artifact create zephyr.bin --version --version ${{ steps.get_version.outputs.version-without-v }}
