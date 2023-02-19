@@ -49,6 +49,16 @@ jobs:
           tar -xvf zephyr-sdk-${{ env.ZEPHYR_SDK_VERSION }}_linux-x86_64_minimal.tar.gz -C /opt/zephyr-sdk --strip-components=1
           /opt/zephyr-sdk/setup.sh -t $TOOLCHAIN
 
+      - name: Set credentials
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: app/prj.conf
+          contents: |
+            CONFIG_GOLIOTH_SYSTEM_CLIENT_PSK_ID="my-psk-id"
+            CONFIG_GOLIOTH_SYSTEM_CLIENT_PSK="my-psk"
+            CONFIG_GOLIOTH_SAMPLE_WIFI_SSID="my-wifi"
+            CONFIG_GOLIOTH_SAMPLE_WIFI_PSK="my-psk"
+
       - name: Build example
         run: |
           west init -l
