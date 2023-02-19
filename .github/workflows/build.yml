@@ -95,4 +95,4 @@ jobs:
 
       - name: Setup goliothctl
         run: |
-          goliothctl login --apiKey ${{ secrets.GOLIOTH_API_KEY }} --projectId ${{ secrets.GOLIOTH_PROJECT_ID }}
+          goliothctl login --apiKey ${{ secrets.GOLIOTH_API_KEY }} --projectId ${{ env.GOLIOTH_PROJECT_ID }}
