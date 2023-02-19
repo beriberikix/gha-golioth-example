@@ -69,17 +69,14 @@ jobs:
           west update
           west build -b $BOARD app -p
 
-      - name: Get Time
-        id: time
-        uses: nanzm/get-time-action@v1.1
-        with:
-          timeZone: 8
-          format: 'YYYY-MM-DD-HH-mm-ss'
+      - name: Get latest release version number
+        id: get_version
+        uses: battila7/get-version-action@v2
 
-      - name: Upload binary
+      - name: Upload binary to GitHub
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.NAME }}-${{ steps.time.outputs.time }}
+          name: ${{ env.NAME }}-${{ steps.get_version.outputs.version }}
           path: |
             build/zephyr/zephyr.elf
             build/zephyr/zephyr.hex
@@ -92,6 +89,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Install goliothctl
         run: |
           echo "deb [trusted=yes] https://repos.golioth.io/apt/ /" | sudo tee /etc/apt/sources.list.d/golioth.list
@@ -101,6 +100,14 @@ jobs:
       - name: Setup goliothctl
         run: |
           goliothctl login --apiKey ${{ secrets.GOLIOTH_API_KEY }} --projectId ${{ env.GOLIOTH_PROJECT_ID }}
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.NAME }}-${{ steps.get_version.outputs.version }}
+          path: path/to/artifact
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Get latest release version number
         id: get_version
