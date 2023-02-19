@@ -96,3 +96,7 @@ jobs:
       - name: Setup goliothctl
         run: |
           goliothctl login --apiKey ${{ secrets.GOLIOTH_API_KEY }} --projectId ${{ env.GOLIOTH_PROJECT_ID }}
+
+      - name: Upload binary to Golioth (create artifact)
+        run: |
+          goliothctl dfu artifact create build/zephyr/zephyr.bin --version 0.0.1
